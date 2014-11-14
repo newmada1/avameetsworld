@@ -41,6 +41,7 @@ router.post("/fileupload", function(req, res) {
                 console.log("success! " + new_location + file_name)
             }
         });
+        /* display a page to inform the user of the upload */
         res.render('uploadcomplete', { "uploadfilename": file_name });
     });
 

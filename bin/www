@@ -1,9 +1,19 @@
 #!/usr/bin/env node
+var https = require('https');
+var fs = require('fs');
 var debug = require('debug')('fileuploadexpress');
 var app = require('../app');
 
+var privateKey = fs.readFileSync('./certificates/server.key').toString();
+var certificate = fs.readFileSync('./certificates/server.crt').toString();
+
+var options = {
+  key : privateKey
+, cert : certificate
+}
+
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
+var server = https.createServer(options, app).listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
